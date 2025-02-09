@@ -110,28 +110,6 @@ void inorder(AVL* root) {
         inorder(root->right);
     }
 }
-
-map<int,vector<int>>g;
-void print(AVL* root){
-    if(!root)return;
-    queue<AVL*>q;
-    q.push(root);
-    while(!q.empty()){
-        int sz=q.size();
-        while(sz--){
-            auto node=q.front();
-            q.pop();
-            if(node->left){
-                q.push(node->left);
-                g[node->val].push_back(node->left->val);
-            }
-            if(node->right){
-                g[node->val].push_back(node->right->val);
-                q.push(node->right);
-            }
-        }
-    }
-}
 int main() {
     AVL* root = nullptr;
     insert(&root, 10);
@@ -145,7 +123,6 @@ int main() {
     inorder(root); // 10 20 25 30 40 50
     cout << "\n";
 
-    print(root);
     root = deleteNode(root, 30);
 
     cout << "After deletion: ";
