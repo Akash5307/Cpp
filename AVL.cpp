@@ -132,49 +132,6 @@ void print(AVL* root){
         }
     }
 }
-map<int,vector<int>>g2;
-void print2(AVL* root){
-    if(!root)return;
-    queue<AVL*>q;
-    q.push(root);
-    while(!q.empty()){
-        int sz=q.size();
-        while(sz--){
-            auto node=q.front();
-            q.pop();
-            if(node->left){
-                q.push(node->left);
-                g2[node->val].push_back(node->left->val);
-            }
-            if(node->right){
-                g2[node->val].push_back(node->right->val);
-                q.push(node->right);
-            }
-        }
-    }
-}
-#include <fstream>
-void generateDotFile(map<int,vector<int>>&g, const string& filename = "graph.dot") {
-    ofstream dotFile(filename);
-    if (!dotFile.is_open()) {
-        cerr << "Failed to create DOT file." << endl;
-        return;
-    }
-
-    dotFile << "digraph G {\n";
-    dotFile << "  node [shape=circle, fontname=\"Arial\"];\n"; // Style nodes
-
-    for (auto [node,vec]:g) {
-        for (int child : vec) {
-            dotFile << "  " << node << " -> " << child << ";\n"; // Add edges
-        }
-    }
-
-    dotFile << "}\n";
-    dotFile.close();
-
-    cout << "DOT file generated: " << filename << endl;
-}
 int main() {
     AVL* root = nullptr;
     insert(&root, 10);
